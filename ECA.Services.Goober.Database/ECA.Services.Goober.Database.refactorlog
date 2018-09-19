@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="def69f79-f8aa-4c73-9f6b-c4cdee6388c0" ChangeDateTime="08/20/2018 16:03:01">
+    <Property Name="ElementName" Value="[dbo].[Document].[EnvelopeId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Document]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="PeanutButterId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="06f11bd7-ba69-4882-bd5c-8202c7a0f9bb" ChangeDateTime="08/20/2018 16:03:12">
+    <Property Name="ElementName" Value="[dbo].[Document].[Name]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Document]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="UTCDateTimeCreated" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="a3673eda-0c00-4612-b578-920b2d5d80a1" ChangeDateTime="08/20/2018 16:04:09">
+    <Property Name="ElementName" Value="[dbo].[Document].[UTCDateTimeCreated]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Document]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CreatedDate" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="10c656df-3199-40b8-8a0a-73a08a58c3e5" ChangeDateTime="08/20/2018 16:04:53">
+    <Property Name="ElementName" Value="[dbo].[Document].[Type]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Document]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Brand" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="2cda72aa-4470-443f-bd15-c4f3959e6be2" ChangeDateTime="08/20/2018 16:05:17">
+    <Property Name="ElementName" Value="[dbo].[Document].[Pages]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Document]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="IsChunky" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="e4aac7f2-181b-4372-9723-c4c2630d628c" ChangeDateTime="08/20/2018 16:05:24">
+    <Property Name="ElementName" Value="[dbo].[Document].[DocumentBytes]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Document]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Data" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="e4a0b2a1-9b3c-4ab8-b853-52a737db6aad" ChangeDateTime="08/21/2018 23:46:20">
+    <Property Name="ElementName" Value="[dbo].[PeanutButter].[Data]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[PeanutButter]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="JsonData" />
+  </Operation>
+</Operations>

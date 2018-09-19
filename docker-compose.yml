@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+
+  eca.services.goober:
+    image: ecaservicesgoober
+    build:
+      context: .
+      dockerfile: ./ECA.Services.Goober/Dockerfile
+
