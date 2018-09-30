@@ -2,9 +2,9 @@ version: '3.4'
 
 services:
 
-  eca.services.goober:
-    image: ecaservicesgoober
+  CCA.services.goober:
+    image: goober
     build:
       context: .
-      dockerfile: ./ECA.Services.Goober/Dockerfile
+      dockerfile: ./CCA.Services.Goober/Dockerfile
 

@@ -1,10 +1,10 @@
 version: '3.4'
 
 services:
-  eca.services.goober:
+  CCA.services.goober:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
-      - "8888:80"
+      - "8080:80"
 
 
