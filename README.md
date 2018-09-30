@@ -1,4 +1,4 @@
-# Introduction RA (Reference Architecture) for a Microservice 
+# .NET Core 2.1 C# RA (Reference Architecture) for a Microservice 
 
 Descr: goober is a microservice scaffold, a template, written in C# and ASPNET Core 2.1 (or higher)
 
