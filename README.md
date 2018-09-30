@@ -1,6 +1,6 @@
-# Introduction RA (Reference Architecture) for a PAT Team Microservice 
+# Introduction RA (Reference Architecture) for a Microservice 
 
-Descr: goober is a microservice scaffold, a template, written in C# and ASPNET Core 2 (or higher)
+Descr: goober is a microservice scaffold, a template, written in C# and ASPNET Core 2.1 (or higher)
 
       "goober" is chosen (which means, "peanut" ), is simply a visible name to provide "high contrast", in the naming conventions in the project.
 
@@ -18,5 +18,4 @@ Run locally, with Docker for Windows (default), or remove dockerfile and it will
 Either launched directly from Visual Studio Debug\Start (F5).
 
 # Contributors
-Created - mtm; 08/17/2018 - cloned from SignatureSvc, removed DocuSign related code, tested three api calls    /ping   /version 
-                               /recipe/peanutbutter (throws NYI)
+Created - mtm; 9/29/2018 - tested three api calls    /ping   /version /recipe/peanutbutter (throws NYI)
