@@ -19,6 +19,7 @@ using CCA.Services.Goober.Models;
 using CCA.Services.Goober.Service;
 using CCA.Services.Goober.DAL;
 using CCA.Services.Goober.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace CCA.Services.Goober
 {
@@ -47,6 +48,18 @@ namespace CCA.Services.Goober
                     .AllowCredentials());
             });
 
+            // uses Auth0.com for API Authentication
+            services.AddAuthentication(options =>
+               {
+                   options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                   options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+               }).AddJwtBearer(options =>
+               {
+                   options.Authority = $"https://{_configuration["Auth0:Domain"]}/"; 
+                   options.Audience = _configuration["Auth0:ApiIdentifier"]; 
+               }
+            );
+ 
             services.AddMvc(options =>
             {
                 options.Filters.Add(new AllowAnonymousFilter());
@@ -87,6 +100,7 @@ namespace CCA.Services.Goober
             IJsonConfiguration config = new JsonConfiguration();
             string connection = config.ConnectionString;
             services.AddDbContext<RepositoryContext>(options => options.UseSqlServer(connection));           
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -105,8 +119,9 @@ namespace CCA.Services.Goober
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Goober Service");
             });
 
-            // JWT/OAuth pipeline
-             app.UseMiddleware<AuthenticationMiddleware>(new JsonConfiguration());
+            // JWT
+            // app.UseMiddleware<AuthenticationMiddleware>(new JsonConfiguration());
+            app.UseAuthentication();
 
             app.UseCors("CorsPolicy");
 
