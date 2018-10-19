@@ -6,12 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
-using NLog.Web;
-using NLog.Extensions.Logging;
 using Microsoft.Extensions.Logging;
-using System.Reflection;
-using System;
-using System.IO;
 using Microsoft.Extensions.Hosting;
 using CCA.Services.Goober.Config;
 using CCA.Services.Goober.Security;
@@ -19,13 +14,14 @@ using CCA.Services.Goober.Models;
 using CCA.Services.Goober.Service;
 using CCA.Services.Goober.DAL;
 using CCA.Services.Goober.Tasks;
+using CCA.Services.Goober.Logging.Models;
+using CCA.Services.Goober.Logging.Provider;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace CCA.Services.Goober
 {
     public class Startup
     {
-        IConfiguration _configuration;
         public Startup(Microsoft.AspNetCore.Hosting.IHostingEnvironment env)       // ctor
         {
             var builder = new ConfigurationBuilder()        
@@ -36,6 +32,7 @@ namespace CCA.Services.Goober
             _configuration = builder.Build();                
         }
 
+        public IConfigurationRoot _configuration { get; }
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -99,13 +96,19 @@ namespace CCA.Services.Goober
             // database context setup
             IJsonConfiguration config = new JsonConfiguration();
             string connection = config.ConnectionString;
-            services.AddDbContext<RepositoryContext>(options => options.UseSqlServer(connection));           
+            services.AddDbContext<RepositoryContext>(options => options.UseSqlServer(connection));
+
+            // logger setup
+            CustomLoggerDBContext.ConnectionString = _configuration.GetConnectionString("LoggerDatabase");
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, Microsoft.AspNetCore.Hosting.IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddConsole(_configuration.GetSection("Logging"));
+            loggerFactory.AddDebug();
+            loggerFactory.AddContext(LogLevel.Information, _configuration.GetConnectionString("LoggerDatabase"));
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -127,18 +130,6 @@ namespace CCA.Services.Goober
 
             app.UseMvc();
             
-            // Nlog database log file
-
-            var defaultConnection = _configuration.GetConnectionString("NLogDb");
-            NLog.GlobalDiagnosticsContext.Set("defaultConnection", defaultConnection );
-
-            env.ConfigureNLog("nlog.config");
-            loggerFactory.AddNLog();
-
-            var logger = NLog.Web.NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
-            logger.Info("Goober service started.");
-
-
         }
     }
 }

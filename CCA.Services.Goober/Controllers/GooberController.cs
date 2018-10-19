@@ -4,21 +4,24 @@ using System.Net;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Newtonsoft.Json.Linq;
 using Microsoft.AspNetCore.Authorization;
-using NLog;
 using CCA.Services.Goober.Models;
 using CCA.Services.Goober.JsonHelpers;
 using CCA.Services.Goober.Service;
 using CCA.Services.Goober.Exceptions;
+using CCA.Services.Goober.Logging.Models;
+using Microsoft.Extensions.Logging;
 
 namespace CCA.Services.Goober.Controllers
 {
     [Route("/")]
     public class GooberController : Controller
     {
-        private Logger _logger;
-        public GooberController()
+        private CustomLoggerDBContext _context;
+        private readonly ILogger<GooberController> _logger;
+        public GooberController( ILogger<GooberController> logger)   // also can inject,  ... CustomLoggerDBContext context )   to log database operations automatically
         {
-            _logger = NLog.Web.NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
+            //_context = context;
+            _logger = logger;
         }
        
         [HttpGet("ping")]   // ping
@@ -26,7 +29,7 @@ namespace CCA.Services.Goober.Controllers
         [SwaggerResponse((int)HttpStatusCode.OK, typeof(Response))]
         public IActionResult GetPing()
         {
-            _logger.Info("GET ping");
+            _logger.LogInformation("GET ping");
             return ResultFormatter.ResponseOK((new JProperty("Ping", "Success")));
         }
         [HttpGet("version")]   // service version (from compiled assembly version)
@@ -34,7 +37,7 @@ namespace CCA.Services.Goober.Controllers
         [SwaggerResponse((int)HttpStatusCode.OK, typeof(Response))]
         public IActionResult GetVersion()
         {
-            _logger.Info("GET version");
+            _logger.LogInformation("GET version");
             var assemblyVersion = typeof(Startup).Assembly.GetName().Version.ToString();
             return ResultFormatter.ResponseOK((new JProperty("Version", assemblyVersion)));
         }
@@ -58,7 +61,7 @@ namespace CCA.Services.Goober.Controllers
             }
             catch (Exception exc)                                       // catch-all exception try/catch block
             {
-                _logger.Error(exc, "GET recipe/peanutbutter unexpected error.");
+                _logger.LogError(exc, "GET recipe/peanutbutter unexpected error.");
                 return ResultFormatter.Format(500, exc);
             }
         }

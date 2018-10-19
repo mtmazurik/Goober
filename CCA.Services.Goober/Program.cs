@@ -7,7 +7,6 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using NLog.Web;
 
 namespace CCA.Services.Goober
 {
@@ -15,16 +14,7 @@ namespace CCA.Services.Goober
     {
         public static void Main(string[] args)
         {
-
-            try
-            {
-                BuildWebHost(args).Run();       // .Net Core lowest lvl event handler, thread.   Allows controller to listen, for WebApi REST MVC events
-            }
-            finally
-            {
-                // Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
-                NLog.LogManager.Shutdown();
-            }
+            BuildWebHost(args).Run();       // .Net Core lowest lvl event handler, thread.   Allows controller to listen, for WebApi REST MVC events
         }
 
        public static IWebHost BuildWebHost(string[] args) =>        // NLog suggested rework of BuildWebHost
@@ -35,7 +25,6 @@ namespace CCA.Services.Goober
                    logging.ClearProviders();
                    logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
                })
-               .UseNLog()                                           // NLog: setup NLog for Dependency injection
                .Build();
     }
 }

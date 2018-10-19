@@ -1,5 +1,4 @@
 ﻿using DataModels = CCA.Services.Goober.DAL.Models;
-using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,19 +7,20 @@ using CCA.Services.Goober.Config;
 using CCA.Services.Goober.DAL;
 using CCA.Services.Goober.Models;
 using System.Threading;
-using CCA.Services.Goober.DAL.Models;
+//using CCA.Services.Goober.DAL.Models;
+using Microsoft.Extensions.Logging;
 
 namespace CCA.Services.Goober.Tasks
 {
     public class Worker : IWorker
     {
-        private Logger _logger;
+        private ILogger _logger;
         private IJsonConfiguration _config;
         private IRepository _repo;
 
-        public Worker(IJsonConfiguration config)                 //ctor
+        public Worker(IJsonConfiguration config, ILogger logger)                 //ctor
         {
-            _logger = NLog.Web.NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
+            _logger = logger;
             _config = config;
             _repo = new Repository(config.ConnectionString);
         }
@@ -33,7 +33,7 @@ namespace CCA.Services.Goober.Tasks
             }
             catch (Exception exc)
             {
-                _logger.Error(exc, "DoTheTask() task error, while attempting MeaningfulWork() async method call.");
+                _logger.LogError(exc, "DoTheTask() task error, while attempting MeaningfulWork() async method call.");
             }
         }
 
@@ -43,11 +43,11 @@ namespace CCA.Services.Goober.Tasks
 
             try
             {
-               peanutButters = _repo.ReadAllPeanutButters();   // code that executes, as a periodic scheduled worker task
+               //peanutButters = _repo.ReadAllPeanutButters();   // code that executes, as a periodic scheduled worker task
             }
             catch(Exception exc)
             {
-                _logger.Error(exc, "Error reading peanut butter table.");
+                _logger.LogError(exc, "Error reading peanut butter table.");
                 throw exc;
             }
         }
