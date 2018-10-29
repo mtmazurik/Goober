@@ -12,7 +12,7 @@ namespace CCA.Services.Goober.DAL.Models
     {
         public int PeanutButterId { get; set; }
         public string Brand { get; set; }
-        public string IsChunky { get; set; }
+        public int IsChunky { get; set; }
         public string JsonData { get; set; }
     }
 }
