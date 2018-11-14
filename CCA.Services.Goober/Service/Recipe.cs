@@ -17,7 +17,7 @@ namespace CCA.Services.Goober.Service
 
         public void GetPeanutButterRecipe()
         {
-            throw new NYIException("recipe code & document format not yet known.");
+            throw new NYIException("recipe code & document format not yet known");
         }
     }
 }
