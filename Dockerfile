@@ -1,8 +1,8 @@
-FROM microsoft/dotnet:2.1-aspnetcore-runtime AS base
+FROM microsoft/dotnet:2.1-aspnetcore-runtime-nanoserver-1809 AS base
 WORKDIR /app
 EXPOSE 80
 
-FROM microsoft/dotnet:2.1-sdk AS build
+FROM microsoft/dotnet:2.1-sdk-nanoserver-1809 AS build
 WORKDIR /src
 COPY ["CCA.Services.Goober/CCA.Services.Goober.csproj", "CCA.Services.Goober/"]
 COPY ["CCA.Services.Goober.DAL/CCA.Services.Goober.DAL.csproj", "CCA.Services.Goober.DAL/"]
